@@ -34,5 +34,10 @@ google:
   base-url: "https://www.googleapis.com"
   api-key:
   cx:
-  rights:
-  per-page:
+  rights: "(cc_publicdomain|cc_attribute|cc_sharealike|cc_nonderived).-(cc_noncommercial)"
+  per-page: 10
+
+image:
+  resize:
+    width: 100
+    height: 100

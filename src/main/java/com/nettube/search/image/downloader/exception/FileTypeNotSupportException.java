@@ -1,9 +1,10 @@
 package com.nettube.search.image.downloader.exception;
 
-public class FileTypeNotSupportException extends RuntimeException {
+import lombok.Getter;
+
+@Getter
+public class FileTypeNotSupportException extends BaseException {
     public static final String MESSAGE = "file type not supported";
-    private Object[] args;
-    private Integer subCode;
 
     public FileTypeNotSupportException() {
         super(MESSAGE);
