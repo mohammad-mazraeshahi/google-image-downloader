@@ -5,7 +5,7 @@ spring:
   application:
     name: "image-downloader"
   datasource:
-    url: "jdbc:postgresql://localhost:5432/image_downloader"
+    url: "jdbc:postgresql://postgres:5432/image_downloader"
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -14,7 +14,6 @@ spring:
       ddlAuto: update
     showSql: false
     open-in-view: false
-
 
 
 swagger:
@@ -32,8 +31,8 @@ springdoc:
 
 google:
   base-url: "https://www.googleapis.com"
-  api-key:
-  cx:
+  api-key: "AIzaSyCIlsfTFgM0jrPfnvyyTYYiCY3mfdHgwAE"
+  cx: "74d09646030824f0f"
   rights: "(cc_publicdomain|cc_attribute|cc_sharealike|cc_nonderived).-(cc_noncommercial)"
   per-page: 10
 

@@ -1,0 +1,29 @@
+services:
+  image-downloader:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+    networks:
+      - imgdl
+
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=image_downloader
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/
+
+networks:
+  imgdl:
+    name: "image-downloader"
+volumes:
+  postgres:
+    name: "postgres-volume"
