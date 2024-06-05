@@ -1,0 +1,38 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: "image-downloader"
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/image_downloader"
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddlAuto: update
+    showSql: false
+    open-in-view: false
+
+
+
+swagger:
+  description: "@project.description@"
+  version: "@project.version@"
+  title: "@project.name@"
+  servers:
+    - url: http://localhost:${server.port}
+      description: Localhost Server URL
+
+springdoc:
+  swagger-ui:
+    path: index.html
+    enabled: true
+
+google:
+  base-url: "https://www.googleapis.com"
+  api-key:
+  cx:
+  rights:
+  per-page:
