@@ -1,12 +1,11 @@
 package com.nettube.search.image.downloader.client;
 
 import com.nettube.search.image.downloader.config.properties.GoogleCustomSearchProperties;
-import org.springframework.core.ParameterizedTypeReference;
+import com.nettube.search.image.downloader.dto.google.GoogleCustomSearchResult;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.util.Map;
 import java.util.Optional;
 
 @Component
@@ -22,12 +21,15 @@ public class GoogleCustomSearchClient {
     }
 
 
-    public Mono<Map<String, Object>> search(String query) {
+    public Mono<GoogleCustomSearchResult> search(String query) {
         return search(query, null);
     }
 
+    public Mono<GoogleCustomSearchResult> search(String query, Integer startIndex) {
+        return search(query, startIndex, googleCustomSearchProperties.getPerPage());
+    }
 
-    public Mono<Map<String, Object>> search(String query, Long startIndex) {
+    public Mono<GoogleCustomSearchResult> search(String query, Integer startIndex, Integer perPage) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder.path("/customsearch/v1")
                         .queryParam("key", googleCustomSearchProperties.getApiKey())
@@ -35,10 +37,10 @@ public class GoogleCustomSearchClient {
                         .queryParam("searchType", SEARCH_TYPE)
                         .queryParam("q", query)
                         .queryParamIfPresent("rights", Optional.ofNullable(googleCustomSearchProperties.getRights()))
-                        .queryParamIfPresent("num", Optional.ofNullable(googleCustomSearchProperties.getPerPage()))
+                        .queryParamIfPresent("num", Optional.ofNullable(perPage))
                         .queryParamIfPresent("start", Optional.ofNullable(startIndex))
                         .build())
                 .retrieve()
-                .bodyToMono(ParameterizedTypeReference.forType(Map.class));
+                .bodyToMono(GoogleCustomSearchResult.class);
     }
 }

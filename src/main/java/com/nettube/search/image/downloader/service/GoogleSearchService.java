@@ -1,14 +1,16 @@
 package com.nettube.search.image.downloader.service;
 
 
+import com.nettube.search.image.downloader.dto.google.Item;
+import com.nettube.search.image.downloader.dto.rest.SearchImageRequest;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.util.Map;
+import java.util.List;
 
 @Service
 public interface GoogleSearchService {
 
-    Mono<Map<String, Object>> search(String query);
+    Mono<List<Item>> search(SearchImageRequest request);
 
 }
