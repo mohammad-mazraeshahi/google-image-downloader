@@ -1,11 +1,14 @@
-package com.nettube.search.image.downloader.service;
+package com.nettube.search.image.downloader.service.impl;
 
 
 import com.nettube.search.image.downloader.client.GoogleCustomSearchClient;
 import com.nettube.search.image.downloader.config.properties.GoogleCustomSearchProperties;
 import com.nettube.search.image.downloader.dto.google.Item;
 import com.nettube.search.image.downloader.dto.rest.SearchImageRequest;
+import com.nettube.search.image.downloader.event.GetNewImageEvent;
+import com.nettube.search.image.downloader.service.GoogleSearchService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -18,6 +21,7 @@ import java.util.List;
 public class GoogleImageSearchService implements GoogleSearchService {
     private final GoogleCustomSearchClient googleCustomSearchClient;
     private final GoogleCustomSearchProperties googleCustomSearchProperties;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Override
     public Mono<List<Item>> search(SearchImageRequest request) {
@@ -33,6 +37,7 @@ public class GoogleImageSearchService implements GoogleSearchService {
                     return googleCustomSearchClient.search(request.getQ(), getIndex(pageNo), perPage);
                 })
                 .doOnNext(result -> items.addAll(result.getItems()))
+                .doOnComplete(() -> applicationEventPublisher.publishEvent(new GetNewImageEvent(this, items)))
                 .then(Mono.just(items));
     }
 
