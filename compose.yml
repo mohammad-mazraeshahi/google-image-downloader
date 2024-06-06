@@ -8,7 +8,7 @@ services:
     depends_on:
       - postgres
     networks:
-      - imgdl
+      - image-downloader
 
   postgres:
     image: postgres
@@ -20,9 +20,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres:/var/lib/postgresql/
+    networks:
+      - image-downloader
 
 networks:
-  imgdl:
+  image-downloader:
     name: "image-downloader"
 volumes:
   postgres:
