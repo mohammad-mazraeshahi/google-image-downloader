@@ -1,12 +1,13 @@
-FROM maven:3.8.5-openjdk-17 as builder
-WORKDIR /build
-ARG ARTIFACT_VERSION
-COPY . .
-RUN mvn clean package -DskipTests
+FROM maven:3.9.6-amazoncorretto-21-al2023 as builder
 
-FROM  ubuntu/jre:17-22.04_edge as runner
-WORKDIR /app
-ARG ARTIFACT_VERSION
-COPY --from=builder /build/target/*.jar /app/final-artifact.jar
+COPY src /home/app/src
+COPY pom.xml /home/app
+
+RUN mvn -f /home/app/pom.xml clean package -DskipTests
+
+FROM openjdk:21 as runner
+COPY --from=builder /home/app/target/*.jar app.jar
+
 EXPOSE 8081
-CMD ["java", "-jar", "/app/final-artifact.jar"]
+
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
