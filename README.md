@@ -1,5 +1,8 @@
 # Google Image Downloader
 Using this service, you can search for mixed words in Google and save the results of the found photos
+This service is written as full reactive programming (asynchronous) and works as no-blocking
+After receiving the number of photos desired by the user and receiving and displaying its information to the user
+asynchronously, it will start receiving resizing and saving the photos to postgres database.
 
 ## Requirements
 - Java >=17
