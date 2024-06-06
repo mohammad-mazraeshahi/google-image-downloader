@@ -4,6 +4,13 @@ This service is written as full reactive programming (asynchronous) and works as
 After receiving the number of photos desired by the user and receiving and displaying its information to the user
 asynchronously, it will start receiving resizing and saving the photos to postgres database.
 
+### More info
+The stored photos are stored in the image table, and in the data field, the photo is stored as an oid of LOB type
+You can use the following sql command to get the photo binary
+```sql
+select lo_get(data) from image limit 1;
+```
+
 ## Requirements
 - Java >=17
 - Maven >=3.6
