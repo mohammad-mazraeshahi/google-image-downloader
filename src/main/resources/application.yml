@@ -31,8 +31,8 @@ springdoc:
 
 google:
   base-url: "https://www.googleapis.com"
-  api-key: "AIzaSyCIlsfTFgM0jrPfnvyyTYYiCY3mfdHgwAE"
-  cx: "74d09646030824f0f"
+  api-key: ""
+  cx: ""
   rights: "(cc_publicdomain|cc_attribute|cc_sharealike|cc_nonderived).-(cc_noncommercial)"
   per-page: 10
 

@@ -32,6 +32,18 @@ cd <PROJECT_DIR>
 java -jar target/<application_name>.jar
 ```
 ### Run by docker
+first set environment variable in docker compose file
+```shell
+SERVER_PORT: 8081
+SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/image_downloader
+SPRING_DATASOURCE_USERNAME: postgres
+SPRING_DATASOURCE_PASSWORD: postgres
+GOOGLE_APIKEY: ""
+GOOGLE_CX: ""
+IMAGE_RESIZE_WIDTH: 100
+IMAGE_RESIZE_HEIGHT: 100
+```
+next run docker compose by bellow command
 ```shell
 cd <PROJECT_DIR>
 docker compose up -d
@@ -53,8 +65,11 @@ Set bellow properties for Google search :
 ```yaml
 google:
   api-key: "<API_KEY>"
-  cx: "<PROGRAMMABLE_SEARCH_ENGINE>"
+  cx: "<SEARCH_ENGINE_ID>"
 ```
+You can refer to [this link](https://console.cloud.google.com/apis/credentials/key) to get `api-key` <br>
+And refer to [this link](https://programmablesearchengine.google.com/controlpanel/all) to get `cx`
+
 Set bellow property for image resize :
 ```yaml
 image:
